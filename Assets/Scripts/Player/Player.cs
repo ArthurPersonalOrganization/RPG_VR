@@ -19,12 +19,18 @@ namespace Scripts.Player
         private ActionBasedContinuousMoveProvider actionMoveProvider;
         [SerializeField]
         private ActionBasedSnapTurnProvider actionTurnProvider;
+        [SerializeField]
+        private GameObject rightHand;
+        [SerializeField]
+        private GameObject leftHand;
 
-        public Inventory inventory { get; private set; }
+        public Equipment Equipment { get; private set; }
+        public Inventory Inventory { get; private set; }
 
         private void Awake()
         {
-            inventory = GetComponent<Inventory>();
+            Equipment = GetComponent<Equipment>();
+            Inventory = GetComponent<Inventory>();
         }
 
         private void OnEnable()

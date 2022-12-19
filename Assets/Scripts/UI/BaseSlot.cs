@@ -24,6 +24,7 @@ namespace Scripts.UI
             this.inventoryItem = inventoryItem;
             image.sprite = inventoryItem.definition.GetStaticProperty("sprite").AsAsset<Sprite>();
             image.enabled = true;
+            button.interactable = true;
         }
 
         public void UnSet()
@@ -31,6 +32,7 @@ namespace Scripts.UI
             inventoryItem = null;
             image.sprite = null;
             image.enabled = false;
+            button.interactable = false;
         }
 
     }

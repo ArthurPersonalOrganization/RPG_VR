@@ -14,7 +14,7 @@ namespace Scripts.UI
 
         private void Awake()
         {
-            mainCameraTransform = Camera.main.transform;
+           // mainCameraTransform = Camera.main.transform;
         }
 
         private void OnEnable()

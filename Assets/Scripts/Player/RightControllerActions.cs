@@ -1,6 +1,6 @@
+using Scripts.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 
 namespace Scripts.Player
 {
@@ -8,7 +8,12 @@ namespace Scripts.Player
     {
         [SerializeField]
         private Player player;
+
         private XRIDefaultInputActions controls;
+
+        private void Awake()
+        {
+        }
 
         private void OnEnable()
         {
@@ -54,21 +59,29 @@ namespace Scripts.Player
 
         public void OnGripButton(InputAction.CallbackContext context)
         {
-            Debug.Log(message: $"on grip {context.performed} right hand");
             if (context.performed)
             {
+                //   Debug.Log(message: $"on grip {context.performed} right hand");
                 var hits = Physics.OverlapSphere(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Items"));
                 foreach (var hit in hits)
                 {
                     var item = hit.GetComponent<Item>();
-                    player.inventory.Add(item);
+                    Debug.Log("Grabbing item " + item.name);
+                    player.Inventory.Add(item);
                 }
             }
         }
 
         public void OnTriggerButton(InputAction.CallbackContext context)
         {
-
+            if (context.performed)
+            {
+                var go = player.Equipment.GetCurrentPrimaryWeapon();
+                if (go != null)
+                {
+                    go.GetComponent<IActivable>()?.Activate();
+                }
+            }
         }
 
         public void OnTrackingState(InputAction.CallbackContext context)
@@ -86,7 +99,5 @@ namespace Scripts.Player
         public void OnRotation(InputAction.CallbackContext context)
         {
         }
-
-      
     }
 }

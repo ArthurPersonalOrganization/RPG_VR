@@ -11,6 +11,12 @@ namespace Scripts.Player
 
         private XRIDefaultInputActions controls;
 
+
+        private void Awake()
+        {
+            
+        }
+
         private void OnEnable()
         {
             if (controls == null)
@@ -23,19 +29,31 @@ namespace Scripts.Player
 
         public void OnPrimaryButton(InputAction.CallbackContext context)
         {
-            Debug.Log(message: $"on primary {context.performed}");
-            if (context.performed)
+           
+            if (context.performed && !UIManager.Instance.InventoryUI.canvasOn)
             {
+            //    Debug.Log(message: $"on primary {context.performed} Inventory on" );
                 UIManager.Instance.InventoryUI.Show();
+            }
+            else if (context.performed && UIManager.Instance.InventoryUI.canvasOn)
+            {
+             //   Debug.Log(message: $"on primary {context.performed} Inventory off");
+                UIManager.Instance.InventoryUI.Hide();
             }
         }
 
         public void OnSecondaryButton(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && UIManager.Instance.EquipmentUI.canvasOn == false)
             {
-                Debug.Log("Y hit on left");
+               // Debug.Log(message: $"on sec {context.performed} equipment on");
                 UIManager.Instance.EquipmentUI.Show();
+            }
+            
+            else if (context.performed && UIManager.Instance.EquipmentUI.canvasOn == true)
+            {
+             //   Debug.Log(message: $"on sec {context.performed} equipment off");
+                UIManager.Instance.EquipmentUI.Hide();
             }
         }
 
@@ -57,14 +75,15 @@ namespace Scripts.Player
 
         public void OnGripButton(InputAction.CallbackContext context)
         {
-            Debug.Log(message: $"on grip {context.performed}");
+           
             if (context.performed)
             {
                 var hits = Physics.OverlapSphere(transform.position, 0.5f, 1 << LayerMask.NameToLayer("Items"));
+          //      Debug.Log(message: $"on grip {context.performed} left hand");
                 foreach (var hit in hits)
                 {
                     var item = hit.GetComponent<Item>();
-                    player.inventory.Add(item);
+                    player.Inventory.Add(item);
                 }
             }
         }

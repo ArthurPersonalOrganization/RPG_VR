@@ -6,16 +6,9 @@ namespace Scripts.UI
 {
     public class UIDebug : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        public void Messagetest(string name)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Debug.Log("clicking the UI " + name);
         }
     }
 }
