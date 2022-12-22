@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Project.Scripts;
 using Scripts.UI;
+using Scripts.Statistics;
 
 namespace Scripts.Managers
 {
@@ -8,5 +9,6 @@ namespace Scripts.Managers
     {
         public InventoryUI InventoryUI;
         public EquipmentUI EquipmentUI;
+        public StatsUI StatsUI;
     }
 }

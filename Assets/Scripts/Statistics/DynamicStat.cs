@@ -1,22 +1,35 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+
 namespace Scripts.Statistics
 {
     public class DynamicStat : Stat
     {
-        public int CurrentValue
-        {
-            get { return CurrentValue; }
-            set { currentValue = Mathf.Clamp(value, 0, Value); }
-        }
-
-        private int currentValue;
-
         public event Action<DynamicStat> OnChangedCurrentValue;
 
-        public DynamicStat(string name, int baseValue) : base(name,baseValue)
+        [SerializeField] private int currentValue;
+        public int CurrentValue
         {
-            currentValue = baseValue;
+            get
+            {
+                return currentValue;
+            }
+            set
+            {
+                currentValue = Mathf.Clamp(value, 0, Value);
+                OnChangedCurrentValue?.Invoke(this);
+            }
+        }
+
+        public DynamicStat(string name, int baseValue) : base(name, baseValue)
+        {
+            CurrentValue = baseValue;
+        }
+
+        public DynamicStat(string name, int baseValue, int value, int currentValue) : base(name, baseValue)
+        {
+            CurrentValue = currentValue;
         }
     }
 }

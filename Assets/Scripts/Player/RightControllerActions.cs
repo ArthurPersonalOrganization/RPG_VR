@@ -51,9 +51,16 @@ namespace Scripts.Player
 
         public void OnSecondary(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && UIManager.Instance.StatsUI.canvasOn == false)
             {
-                Debug.Log("B clicked on Right Hand");
+                // Debug.Log(message: $"on sec {context.performed} equipment on");
+                UIManager.Instance.StatsUI.Show();
+            }
+
+            else if (context.performed && UIManager.Instance.StatsUI.canvasOn == true)
+            {
+                //   Debug.Log(message: $"on sec {context.performed} equipment off");
+                UIManager.Instance.StatsUI.Hide();
             }
         }
 
