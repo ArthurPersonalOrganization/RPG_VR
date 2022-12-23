@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Project.Scripts;
 using Scripts.UI;
 using Scripts.Statistics;
+using Scripts.helper;
 
 namespace Scripts.Managers
 {

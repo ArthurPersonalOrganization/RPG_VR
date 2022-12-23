@@ -1,21 +1,35 @@
-﻿using System;
+﻿using Scripts.Managers;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.GameFoundation;
 
 namespace Scripts.Statistics
 {
     public class Stats : MonoBehaviour
     {
         public event Action OnInitialized;
+
         public List<Stat> stats;
 
-        private void Start()
+        private void OnEnable()
+        {
+            EventManager.Instance.OnEquip += AddEquipmentModifiers;
+            EventManager.Instance.OnUnequip += RemoveEquipmentModifiers;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.OnEquip -= AddEquipmentModifiers;
+            EventManager.Instance.OnUnequip -= RemoveEquipmentModifiers;
+        }
+
+        private void Awake()
         {
             if (stats == null)
             {
                 Debug.Log("Init the stat List");
-                
+
                 stats = new List<Stat>()
                 {
                     new Stat(StatType.STRENGTH, 5),
@@ -32,10 +46,9 @@ namespace Scripts.Statistics
                     new Stat(StatType.HEALTH, 100),
                     new Stat(StatType.STAMINA, 100),
                     new Stat(StatType.MANA, 100)
-
                 };
             }
-            Debug.Log("stats list "+stats.Count);
+            Debug.Log("stats list " + stats.Count);
             OnInitialized?.Invoke();
         }
 
@@ -53,6 +66,24 @@ namespace Scripts.Statistics
                 {
                     stats.Add(value);
                 }
+            }
+        }
+
+        private void AddEquipmentModifiers(InventoryItem item)
+        {
+            foreach (var mutable in item.GetMutableProperties())
+            {
+                Stat stat = stats.Find(st => st.name == mutable.Key);
+                stat.AddModifier(new StatModifier(mutable.Value.AsInt(), ModifierType.Flat));
+            }
+        }
+
+        private void RemoveEquipmentModifiers(InventoryItem item)
+        {
+            foreach (var mutable in item.GetMutableProperties())
+            {
+                Stat stat = stats.Find(st => st.name == mutable.Key);
+                stat.RemoveModifier(new StatModifier(mutable.Value.AsInt(), ModifierType.Flat));
             }
         }
     }

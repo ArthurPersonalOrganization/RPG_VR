@@ -35,8 +35,13 @@ MonoBehaviour:
   m_InitialAllocation: 0
   m_IsStackableFlag: 0
   m_InitialQuantityPerStack: 1
-  m_MutablePropertyKeys: []
-  m_MutablePropertyDefaultValues: []
+  m_MutablePropertyKeys:
+  - physicalAttack
+  m_MutablePropertyDefaultValues:
+  - <type>k__BackingField: 0
+    m_ValueType:
+      longValue: 15
+    m_StringValue: 
 --- !u!114 &-7360969322841068512
 MonoBehaviour:
   m_ObjectHideFlags: 0

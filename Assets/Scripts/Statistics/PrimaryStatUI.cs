@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Script.Statistics
+namespace Scripts.Statistics
 {
     public class PrimaryStatUI : BaseStatUI
     {

@@ -1,4 +1,4 @@
-using Script.Statistics;
+using Scripts.Statistics;
 using Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +28,32 @@ namespace Scripts.Statistics
         private List<PrimaryStatUI> primaryStatUIs;
         private List<DynamicStatUI> dynamicUis;
 
+
+        private void OnEnable()
+        {
+            statsObj.OnInitialized += Refresh;
+        }
+
         private void Awake()
         {
             base.Awake();
             statsUIs = statParent.GetComponentsInChildren<BaseStatUI>(true).ToList();
             primaryStatUIs = primaryStatParent.GetComponentsInChildren<PrimaryStatUI>(true).ToList();
             dynamicUis = dynamicStatParent.GetComponentsInChildren<DynamicStatUI>(true).ToList();
+        }
+
+
+
+        private void Start()
+        {           
             Debug.Log("calling refres 1h");
-            statsObj.OnInitialized += Refresh;
+            
             buttonClose.onClick.AddListener(delegate { Hide(); });
+        }
+
+        public void CallRefresh()
+        {
+            Refresh();
         }
 
         private void Refresh()
