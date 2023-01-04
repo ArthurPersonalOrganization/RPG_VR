@@ -29,7 +29,7 @@ namespace Scripts.Enemies
 
         private void OnEnable()
         {
-            //SceneLinkedSMB<Enemy>.Initialise(animator, this);
+            SceneLinkedSMB<Enemy>.Initialise(animator, this);
         }
         private void Awake()
         {
@@ -40,15 +40,15 @@ namespace Scripts.Enemies
 
         private void Update()
         {
-            //animator.SetFloat(MovementSpeed, agent.velocity.magnitude / agent.speed);
+            animator.SetFloat(MovementSpeed, agent.velocity.magnitude / agent.speed);
         }
 
         private void FixedUpdate()
         {
             if (target)
             {
-                //animator.SetBool(Attacking, Physics.CheckSphere(transform.position, attackRange, playerLayer));
-                //animator.SetBool(Following, Physics.CheckSphere(transform.position, fieldOfVisionRadius, playerLayer));
+                animator.SetBool(Attacking, Physics.CheckSphere(transform.position, attackRange, playerLayer));
+                animator.SetBool(Following, Physics.CheckSphere(transform.position, fieldOfVisionRadius, playerLayer));
 
             }
             else
@@ -60,8 +60,8 @@ namespace Scripts.Enemies
                     Vector3 direction = hitColliders[i].transform.position - transform.position ;
                     Debug.Log("playes is " + direction);
                     //get the angle where the player is 
-                    //float angle = Vector3.Angle(direction, transform.forward); 
-                    float angle = Vector3.Angle(transform.position, direction);
+                    float angle = Vector3.Angle(direction, transform.forward); 
+                   // float angle = Vector3.Angle(transform.position, direction);
                     Debug.Log("looking to " + angle);
 
                     if (angle < fieldOfViewAngle)
@@ -69,7 +69,7 @@ namespace Scripts.Enemies
                         if(Physics.Raycast(transform.position + transform.up, direction.normalized, out RaycastHit hit, fieldOfVisionRadius))
                         {
                             target = hit.collider.transform;
-                            //animator.SetBool(Following, true);
+                            animator.SetBool(Following, true);
                             break;
                         }
                     }

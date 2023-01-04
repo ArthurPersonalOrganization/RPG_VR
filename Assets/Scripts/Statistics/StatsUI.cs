@@ -49,6 +49,7 @@ namespace Scripts.Statistics
             Debug.Log("calling refres 1h");
             
             buttonClose.onClick.AddListener(delegate { Hide(); });
+            //buttonClose.onClick.AddListener() => Hide();
         }
 
         public void CallRefresh()
@@ -58,7 +59,7 @@ namespace Scripts.Statistics
 
         private void Refresh()
         {
-            Debug.Log("calling refre 2sh");
+            //Debug.Log("calling refre 2sh");
             foreach (var statUi in statsUIs)
             {
                 Debug.Log(statUi.name);
